@@ -1,4 +1,4 @@
-# Pipeline Proposal
+# Pipeline Proposal (aka. SDLC proposal)
 
 > A proposal for a pipeline to be used.
 
@@ -9,7 +9,7 @@
 - 🔧 Validate the codebase
 - 🔨 Lint the codebase
 - 🧪 Test the codebase
-- 📦️ Create a new release
+- 📦️ Create a new release (version bump, changelog, release notes)
 
 ---
 
@@ -64,6 +64,16 @@ ShellCheck is a GPLv3 tool that gives warnings and suggestions for bash/sh shell
 - Syntax errors that can cause a shell script to fail
 - Semantic problems that may cause a shell to behave strangely or incorrectly
 - Subtle caveats, corner cases, and pitfalls that may cause an advanced user's otherwise working script to fail under future circumstances
+
+---
+
+## Markdownlint - Markdown Linting
+
+> A tool to help maintain consistent Markdown formatting.
+
+![markdownlint](./docs/markdownlint.png)
+
+It is used to check the Markdown files against the Markdownlint specification.
 
 ---
 
@@ -145,6 +155,8 @@ Given a version number `MAJOR.MINOR.PATCH`, increment the:
 
 > Automated continuous integration using GitHub Actions and Super-Linter.
 
+![ci](./docs/ci.png)
+
 The project includes a comprehensive CI pipeline that runs automatically on pull requests to the main branch. The workflow is defined in `.github/workflows/ci.yml` and consists of three jobs:
 
 ### 1. Super-Linter Job
@@ -191,28 +203,21 @@ The CI pipeline runs automatically when:
 
 > Automate releases based on Conventional Commits specification.
 
+![release](./docs/release.png)
+
 Release Please automates the entire release process including version bumping, changelog generation, and creating GitHub releases. The workflow is defined in `.github/workflows/release.yml`.
 
 ### How It Works
 
 1. **Commit Analysis**: Release Please analyzes commits since the last release using Conventional Commits format
 2. **Release PR Creation**: Automatically creates and maintains a release PR with:
-   - Updated version numbers in `package.json`
-   - Generated/updated `CHANGELOG.md` with all changes
-   - Proper SemVer version bumping based on commit types
+
+- Updated version numbers in `package.json`
+- Generated/updated `CHANGELOG.md` with all changes
+- Proper SemVer version bumping based on commit types
+
 3. **GitHub Release**: When the release PR is merged, automatically:
-   - Creates a GitHub release with release notes
-   - Tags the release with the new version
-   - Runs post-release tests
 
----
-
-## Markdownlint - Markdown Linting
-
-> A tool to help maintain consistent Markdown formatting.
-
-![markdownlint](./docs/markdownlint.png)
-
-It is used to check the Markdown files against the Markdownlint specification.
-
----
+- Creates a GitHub release with release notes
+- Tags the release with the new version
+- Runs post-release tests

@@ -1,4 +1,4 @@
-.PHONY: run test clean help permissions setup-commitlint check-commit check-editorconfig check-shellcheck check-markdownlint lint
+.PHONY: run test clean help permissions setup-commitlint check-commit check-editorconfig check-shellcheck check-markdownlint lint pkg
 
 # Default target
 help:
@@ -15,6 +15,7 @@ help:
 	@echo "  make lint                - Run all linters (editorconfig + shellcheck + markdownlint)"
 	@echo "  make setup-commitlint    - Install commitlint and setup git hooks"
 	@echo "  make check-commit        - Check the last commit message"
+	@echo "  make pkg                 - Create macOS PKG installer package"
 	@echo "  make clean               - Clean up temporary files"
 	@echo "  make help                - Show this help message"
 	@echo ""
@@ -81,9 +82,64 @@ check-markdownlint:
 lint: check-commit check-editorconfig check-shellcheck check-markdownlint
 	@echo "✅ All linting checks passed!"
 
+# Create macOS PKG installer package
+pkg: permissions clean
+	@echo "======================================"
+	@echo "Creating macOS PKG installer..."
+	@echo "======================================"
+	@# Extract version from package.json
+	$(eval VERSION := $(shell node -p "require('./package.json').version"))
+	$(eval PKG_NAME := simple-pipeline-poc-$(VERSION).pkg)
+	$(eval IDENTIFIER := com.acactown.simple-pipeline-poc)
+	$(eval INSTALL_LOCATION := /usr/local/share/simple-pipeline-poc)
+	@echo "Package Name: $(PKG_NAME)"
+	@echo "Version: $(VERSION)"
+	@echo "Identifier: $(IDENTIFIER)"
+	@echo "Install Location: $(INSTALL_LOCATION)"
+	@echo ""
+	@# Create staging directory structure
+	@echo "📁 Creating staging directory..."
+	@mkdir -p build/pkg/payload$(INSTALL_LOCATION)
+	@mkdir -p build/pkg/scripts
+	@# Copy source files to staging area
+	@echo "📦 Copying source files..."
+	@cp -R src/* build/pkg/payload$(INSTALL_LOCATION)/
+	@# Create postinstall script to set permissions
+	@echo "📝 Creating installation scripts..."
+	@echo '#!/bin/bash' > build/pkg/scripts/postinstall
+	@echo 'chmod +x $(INSTALL_LOCATION)/main.sh' >> build/pkg/scripts/postinstall
+	@echo 'chmod +x $(INSTALL_LOCATION)/modules/*.sh' >> build/pkg/scripts/postinstall
+	@echo 'ln -sf $(INSTALL_LOCATION)/main.sh /usr/local/bin/simple-calculator 2>/dev/null || true' >> build/pkg/scripts/postinstall
+	@echo 'echo "✅ Simple Calculator installed successfully!"' >> build/pkg/scripts/postinstall
+	@echo 'echo "Run: simple-calculator"' >> build/pkg/scripts/postinstall
+	@echo 'exit 0' >> build/pkg/scripts/postinstall
+	@chmod +x build/pkg/scripts/postinstall
+	@# Create the PKG file
+	@echo ""
+	@echo "🔨 Building PKG file..."
+	@pkgbuild --root build/pkg/payload \
+		--identifier $(IDENTIFIER) \
+		--version $(VERSION) \
+		--scripts build/pkg/scripts \
+		--install-location / \
+		build/$(PKG_NAME)
+	@echo ""
+	@echo "======================================"
+	@echo "✅ PKG created successfully!"
+	@echo "======================================"
+	@echo "📦 Package: build/$(PKG_NAME)"
+	@echo ""
+	@echo "To install:"
+	@echo "  sudo installer -pkg build/$(PKG_NAME) -target /"
+	@echo ""
+	@echo "After installation, run:"
+	@echo "  simple-calculator"
+	@echo ""
+
 # Clean up temporary files
 clean:
 	@echo "Cleaning up..."
 	@find . -name "*.tmp" -type f -delete
 	@find . -name "*.log" -type f -delete
-	@echo "Clean complete!"
+	@rm -rf build/
+	@echo "✅ Clean complete!"

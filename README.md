@@ -147,6 +147,7 @@ simple-pipeline-poc/
 - `make check-shellcheck` - Check shell scripts with ShellCheck
 - `make check-markdownlint` - Check Markdown files with markdownlint
 - `make lint` - Run all linters (editorconfig + shellcheck + markdownlint)
+- `make pkg` - Create macOS PKG installer package (see [PKG Build Guide](docs/PKG_BUILD.md))
 - `make clean` - Remove temporary files
 
 ## Configuration
