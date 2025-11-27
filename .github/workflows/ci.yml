@@ -47,7 +47,7 @@ jobs:
           BASH_FILE_NAME: .shellcheckrc
 
           # Markdown configuration
-          MARKDOWN_CONFIG_FILE: .markdownlint.json
+          MARKDOWN_CONFIG_FILE: .markdown-lint.yml
 
           # Filter files
           FILTER_REGEX_EXCLUDE: '(node_modules/|package-lock.json|docs/)'
