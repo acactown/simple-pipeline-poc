@@ -8,5 +8,5 @@ multiplication() {
     local second=$2
 
     # Use bc for floating point arithmetic
-    echo "${first} + ${second}" | bc
+    echo "${first} * ${second}" | bc
 }
