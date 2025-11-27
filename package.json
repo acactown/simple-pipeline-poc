@@ -1,0 +1,26 @@
+{
+  "name": "simple-pipeline-poc",
+  "version": "1.0.0",
+  "description": "A simple yet comprehensive calculator application written in BASH",
+  "main": "src/main.sh",
+  "scripts": {
+    "test": "bash tests/main.sh",
+    "commitlint": "commitlint --edit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acactown/simple-pipeline-poc"
+  },
+  "keywords": [
+    "bash",
+    "calculator",
+    "shell",
+    "pipeline"
+  ],
+  "author": "acactown <acactown@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3"
+  }
+}

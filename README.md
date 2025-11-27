@@ -1,1 +1,366 @@
-# simple-pipeline-poc
+# BASH Calculator
+
+A simple yet comprehensive calculator application written in BASH, featuring modular design and comprehensive unit testing.
+
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Testing](#testing)
+- [Supported Operations](#supported-operations)
+- [Examples](#examples)
+
+## Overview
+
+This calculator application demonstrates best practices in BASH scripting, including:
+
+- Modular architecture with separate operation modules
+- JSON-based configuration
+- Comprehensive unit testing
+- Make-based build system
+- Error handling and input validation
+
+## Features
+
+- ✅ Four basic arithmetic operations (addition, subtraction, multiplication, division)
+- ✅ JSON configuration file for operation definition
+- ✅ Modular design for easy extension
+- ✅ Comprehensive unit tests for all operations
+- ✅ Support for integer and floating-point numbers
+- ✅ Division by zero protection
+- ✅ Clean Makefile for easy execution
+
+## Prerequisites
+
+Before using this calculator, ensure you have the following installed:
+
+- **BASH** (version 4.0 or higher)
+- **jq** - Command-line JSON processor
+- **bc** - Basic calculator for arithmetic operations
+- **make** - Build automation tool
+
+### Optional (for development):
+
+- **Node.js** (version 14.x or higher) - For commitlint
+- **npm** (version 6.x or higher) - For package management
+
+### Installing Prerequisites
+
+**On macOS:**
+
+```bash
+brew install jq bc make
+```
+
+**On Ubuntu/Debian:**
+
+```bash
+sudo apt-get update
+sudo apt-get install jq bc make
+```
+
+**On CentOS/RHEL:**
+
+```bash
+sudo yum install jq bc make
+```
+
+## Project Structure
+
+```
+simple-pipeline-poc/
+├── src/
+│   ├── main.sh                    # Main entry point
+│   └── modules/
+│       ├── addition.sh            # Addition operation
+│       ├── subtraction.sh         # Subtraction operation
+│       ├── multiplication.sh      # Multiplication operation
+│       └── division.sh            # Division operation
+├── tests/
+│   ├── main.sh                    # Test runner
+│   └── modules/
+│       ├── addition.test.sh       # Addition tests
+│       ├── subtraction.test.sh    # Subtraction tests
+│       ├── multiplication.test.sh # Multiplication tests
+│       └── division.test.sh       # Division tests
+├── operation.json                 # Configuration file
+├── Makefile                       # Build automation
+└── README.md                      # This file
+```
+
+## Installation
+
+1. **Clone or download the repository:**
+
+   ```bash
+   cd /path/to/simple-pipeline-poc
+   ```
+
+2. **Set executable permissions:**
+
+   ```bash
+   make permissions
+   ```
+
+   This command automatically sets executable permissions on all scripts.
+
+## Usage
+
+### Quick Start
+
+1. **Edit the configuration file** (`operation.json`) to specify the operation:
+
+   ```json
+   {
+     "operation": "addition",
+     "first_number": 10,
+     "second_number": 5
+   }
+   ```
+
+2. **Run the calculator:**
+
+   ```bash
+   make run
+   ```
+
+### Available Make Commands
+
+- `make help` - Display available commands
+- `make run` - Execute the calculator with current configuration
+- `make test` - Run all unit tests
+- `make permissions` - Set executable permissions on scripts
+- `make setup-commitlint` - Install commitlint and setup git hooks
+- `make check-commit` - Check the last commit message
+- `make clean` - Remove temporary files
+
+## Configuration
+
+The calculator reads its configuration from `operation.json` in the root directory.
+
+### Configuration Format
+
+```json
+{
+  "operation": "operation_name",
+  "first_number": number_or_string,
+  "second_number": number_or_string
+}
+```
+
+### Configuration Fields
+
+- **operation** (string, required): The operation to perform
+  - Valid values: `"addition"`, `"subtraction"`, `"multiplication"`, `"division"`
+- **first_number** (number/string, required): The first operand
+- **second_number** (number/string, required): The second operand
+
+### Configuration Examples
+
+**Addition:**
+
+```json
+{
+  "operation": "addition",
+  "first_number": 2,
+  "second_number": 2
+}
+```
+
+**Division with decimals:**
+
+```json
+{
+  "operation": "division",
+  "first_number": 10.5,
+  "second_number": 2.5
+}
+```
+
+## Development Workflow
+
+### Commit Message Format
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) enforced by [Commitlint](https://commitlint.js.org/).
+
+**Format:** `<type>: [task-id] <description>`
+
+**Example:** `feat: [DMPINV-101] add multiplication operation`
+
+**Setup commitlint:**
+```bash
+make setup-commitlint
+```
+
+For more details, see [docs/COMMITLINT.md](docs/COMMITLINT.md)
+
+## Testing
+
+The project includes comprehensive unit tests for all operations.
+
+### Running All Tests
+
+```bash
+make test
+```
+
+### Running Individual Test Files
+
+```bash
+# Addition tests
+bash tests/modules/addition.test.sh
+
+# Subtraction tests
+bash tests/modules/subtraction.test.sh
+
+# Multiplication tests
+bash tests/modules/multiplication.test.sh
+
+# Division tests
+bash tests/modules/division.test.sh
+```
+
+## Supported Operations
+
+### 1. Addition
+
+Adds two numbers together.
+
+**Configuration:**
+
+```json
+{"operation": "addition", "first_number": 5, "second_number": 3}
+```
+
+**Result:** `8`
+
+### 2. Subtraction
+
+Subtracts the second number from the first.
+
+**Configuration:**
+
+```json
+{"operation": "subtraction", "first_number": 10, "second_number": 4}
+```
+
+**Result:** `6`
+
+### 3. Multiplication
+
+Multiplies two numbers.
+
+**Configuration:**
+
+```json
+{"operation": "multiplication", "first_number": 6, "second_number": 7}
+```
+
+**Result:** `42`
+
+### 4. Division
+
+Divides the first number by the second (with 2 decimal precision).
+
+**Configuration:**
+
+```json
+{"operation": "division", "first_number": 15, "second_number": 4}
+```
+
+**Result:** `3.75`
+
+## Examples
+
+### Example 1: Simple Addition
+
+```bash
+# Edit operation.json
+cat > operation.json << EOF
+{
+  "operation": "addition",
+  "first_number": 100,
+  "second_number": 250
+}
+EOF
+
+# Run calculator
+make run
+```
+
+**Output:**
+
+```
+📝 Operation: addition
+    🔢  First Number: 100
+    🔢 Second Number: 250
+  ------------------------
+    ✅ Result: 350
+```
+
+### Example 2: Division with Decimals
+
+```bash
+# Edit operation.json
+cat > operation.json << EOF
+{
+  "operation": "division",
+  "first_number": 22,
+  "second_number": 7
+}
+EOF
+
+# Run calculator
+make run
+```
+
+**Output:**
+
+```
+📝 Operation: division
+    🔢  First Number: 22
+    🔢 Second Number: 7
+  ------------------------
+    ✅ Result: 3.14
+```
+
+### Example 3: Running Tests
+
+```bash
+make test
+```
+
+**Output:**
+
+```
+======================================
+Running Calculator Unit Tests
+======================================
+
+Running: addition.test.sh
+Testing addition module...
+  ✅ 2 + 3 = 5 => PASSED 🎉
+  ✅ -5 + 3 = -2 => PASSED 🎉
+  ✅ 0 + 5 = 5 => PASSED 🎉
+  ✅ 2.5 + 3.5 = 6.0 => PASSED 🎉
+  ✅ 1000 + 2000 = 3000 => PASSED 🎉
+✅ Passed 5/5 tests
+✅ addition.test.sh => PASSED 🎉
+
+[... more tests ...]
+
+======================================
+Test Summary
+======================================
+Total Tests: 4
+
+✅ Passed: 4
+✅ Failed: 0
+
+✅ All tests passed!
+```
