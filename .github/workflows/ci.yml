@@ -1,0 +1,101 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  super-linter:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Run Super-Linter
+        uses: super-linter/super-linter@v8.2.1
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          # Enable specific linters
+          VALIDATE_EDITORCONFIG: true
+          VALIDATE_BASH: true
+          VALIDATE_BASH_EXEC: true
+          VALIDATE_MARKDOWN: true
+
+          # Disable all other linters
+          VALIDATE_ALL_CODEBASE: false
+
+          # EditorConfig settings
+          EDITORCONFIG_FILE_NAME: .editorconfig-checker.json
+
+          # ShellCheck configuration
+          BASH_FILE_NAME: .shellcheckrc
+
+          # Markdown configuration
+          MARKDOWN_CONFIG_FILE: .markdownlint.json
+
+          # Filter files
+          FILTER_REGEX_EXCLUDE: '(node_modules/|package-lock.json|docs/)'
+
+          # Output settings
+          LOG_LEVEL: NOTICE
+          SUPPRESS_POSSUM: true
+
+  commitlint:
+    name: Lint Commit Messages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Validate Commit Messages
+        run: |
+          # Get the base and head commits
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+
+          # Lint all commits in the PR
+          npx commitlint --from "${BASE_SHA}" --to "${HEAD_SHA}" --verbose
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    needs: [super-linter, commitlint]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Run Tests
+        run: make test

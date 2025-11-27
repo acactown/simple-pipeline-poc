@@ -14,6 +14,7 @@ A simple yet comprehensive calculator application written in BASH, featuring mod
 - [Testing](#testing)
 - [Supported Operations](#supported-operations)
 - [Examples](#examples)
+- [Code Quality and CI/CD](#code-quality-and-cicd)
 
 ## Overview
 
@@ -355,4 +356,63 @@ Total Tests: 4
 ✅ Failed: 0
 
 ✅ All tests passed!
+```
+
+## Code Quality and CI/CD
+
+This project includes comprehensive code quality checks and continuous integration:
+
+### Continuous Integration
+
+The project uses GitHub Actions for automated CI on all pull requests to the `main` branch. The CI pipeline (`.github/workflows/ci.yml`) includes:
+
+1. **Super-Linter Job**: Runs [super-linter](https://github.com/super-linter/super-linter) to validate code quality
+
+   - **EditorConfig**: Validates code formatting consistency
+   - **ShellCheck**: Analyzes shell scripts for errors and best practices
+   - **Markdownlint**: Checks Markdown files for style consistency
+
+2. **Commitlint Job**: Validates commit messages follow Conventional Commits specification
+
+3. **Test Job**: Runs the full test suite (`make test`)
+
+### Local Development Quality Checks
+
+Before submitting a pull request, run these checks locally:
+
+```bash
+# Run all linters
+make lint
+
+# Check individual linters
+make check-editorconfig
+make check-shellcheck
+make check-markdownlint
+make check-commit
+
+# Run tests
+make test
+```
+
+### Code Style Guidelines
+
+- **Shell Scripts**: Follow [ShellCheck](https://github.com/koalaman/shellcheck) recommendations (`.shellcheckrc`)
+- **Formatting**: Follow [EditorConfig](https://editorconfig.org/) rules (`.editorconfig`)
+- **Markdown**: Follow Markdownlint rules (`.markdownlint.json`)
+- **Commits**: Follow [Conventional Commits](https://www.conventionalcommits.org/) (`.commitlintrc.json`)
+
+### Commit Message Format
+
+```
+<type>: [optional task-id] <description>
+```
+
+**Valid types**: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+
+**Examples:**
+
+```
+feat: [DMPINV-101] add multiplication operation
+fix: [DMPINV-202] correct division by zero handling
+docs: update README with CI/CD information
 ```

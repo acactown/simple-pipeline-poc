@@ -1,4 +1,15 @@
-# Pipeline POC
+# Pipeline Proposal
+
+> A proposal for a pipeline to be used.
+
+![pipeline](./docs/pipeline.png)
+
+**The pipeline should:**
+
+- 🔧 Validate the codebase
+- 🔨 Lint the codebase
+- 🧪 Test the codebase
+- 📦️ Create a new release
 
 ---
 
@@ -137,5 +148,51 @@ Given a version number `MAJOR.MINOR.PATCH`, increment the:
 ![markdownlint](./docs/markdownlint.png)
 
 It is used to check the Markdown files against the Markdownlint specification.
+
+---
+
+## GitHub Actions CI Pipeline
+
+> Automated continuous integration using GitHub Actions and Super-Linter.
+
+The project includes a comprehensive CI pipeline that runs automatically on pull requests to the main branch. The workflow is defined in `.github/workflows/ci.yml` and consists of three jobs:
+
+### 1. Super-Linter Job
+
+Runs the [super-linter](https://github.com/super-linter/super-linter) GitHub Action to validate code quality. This job checks:
+
+- **EditorConfig**: Validates code formatting against `.editorconfig` rules
+- **ShellCheck**: Analyzes shell scripts for errors and best practices using `.shellcheckrc`
+- **Markdownlint**: Checks Markdown files for style consistency using `.markdownlint.json`
+
+Configuration:
+
+- Uses `.editorconfig-checker.json` for EditorConfig validation
+- Uses `.shellcheckrc` for ShellCheck configuration
+- Uses `.markdownlint.json` for Markdown linting rules
+- Excludes `node_modules/`, `package-lock.json`, and `docs/` from validation
+
+### 2. Commitlint Job
+
+Validates commit messages in the pull request to ensure they follow the Conventional Commits specification:
+
+- Checks all commits from the base branch to the head of the PR
+- Uses `.commitlintrc.json` configuration
+- Ensures commit messages follow the format: `<type>: [optional task-id] <description>`
+
+### 3. Test Job
+
+Runs the project's test suite after successful linting:
+
+- Depends on both `super-linter` and `commitlint` jobs passing
+- Sets executable permissions using `make permissions`
+- Runs all unit tests using `make test`
+
+### Running the Pipeline
+
+The CI pipeline runs automatically when:
+
+- A pull request is opened targeting the `main` branch
+- New commits are pushed to an open pull request
 
 ---
