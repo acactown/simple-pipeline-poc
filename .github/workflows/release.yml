@@ -1,5 +1,10 @@
 name: Release Pipeline
 
+# IMPORTANT: For this workflow to work, you must enable the following in your repository:
+# Settings → Actions → General → Workflow permissions:
+# 1. Select "Read and write permissions"
+# 2. Check "Allow GitHub Actions to create and approve pull requests"
+
 on:
   push:
     branches:
