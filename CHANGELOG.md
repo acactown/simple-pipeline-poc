@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/acactown/simple-pipeline-poc/compare/v1.0.0...v1.0.1) (2025-11-27)
+
+
+### Bug Fixes
+
+* fix PKG issue ([#3](https://github.com/acactown/simple-pipeline-poc/issues/3)) ([d8f61e9](https://github.com/acactown/simple-pipeline-poc/commit/d8f61e96812fb61aba3c3d0b61d1bb95f45fbb21))
+
 ## 1.0.0 (2025-11-27)
 
 
