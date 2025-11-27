@@ -116,7 +116,7 @@ It checks the commit message against the Conventional Commits specification.
 
 > A tool to help enforce Conventional Commits.
 
-Husky is a tool that helps enforce Conventional Commits. It is used to check the commit message against the Conventional Commits specification.
+It is used to check the commit message against the Conventional Commits specification before it is committed.
 
 ---
 
@@ -138,16 +138,6 @@ Given a version number `MAJOR.MINOR.PATCH`, increment the:
 - `1.1.1` -> compatible new bug fix -> `1.1.2` -> compatible new bug fix -> `1.1.3`
 - `1.1.3` -> breaking change -> `2.0.0`
 - `2.0.0` -> compatible new bug fix -> `2.0.1` -> compatible new bug fix -> `2.0.2`
-
----
-
-## Markdownlint - Markdown Linting
-
-> A tool to help maintain consistent Markdown formatting.
-
-![markdownlint](./docs/markdownlint.png)
-
-It is used to check the Markdown files against the Markdownlint specification.
 
 ---
 
@@ -194,5 +184,35 @@ The CI pipeline runs automatically when:
 
 - A pull request is opened targeting the `main` branch
 - New commits are pushed to an open pull request
+
+---
+
+## Release Please - Automated Releases
+
+> Automate releases based on Conventional Commits specification.
+
+Release Please automates the entire release process including version bumping, changelog generation, and creating GitHub releases. The workflow is defined in `.github/workflows/release.yml`.
+
+### How It Works
+
+1. **Commit Analysis**: Release Please analyzes commits since the last release using Conventional Commits format
+2. **Release PR Creation**: Automatically creates and maintains a release PR with:
+   - Updated version numbers in `package.json`
+   - Generated/updated `CHANGELOG.md` with all changes
+   - Proper SemVer version bumping based on commit types
+3. **GitHub Release**: When the release PR is merged, automatically:
+   - Creates a GitHub release with release notes
+   - Tags the release with the new version
+   - Runs post-release tests
+
+---
+
+## Markdownlint - Markdown Linting
+
+> A tool to help maintain consistent Markdown formatting.
+
+![markdownlint](./docs/markdownlint.png)
+
+It is used to check the Markdown files against the Markdownlint specification.
 
 ---

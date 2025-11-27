@@ -1,0 +1,61 @@
+name: Release Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    name: Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Release Please
+        uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          # Release type for the project
+          release-type: node
+
+          # Package name (from package.json)
+          package-name: simple-pipeline-poc
+
+          # Token for creating releases and PRs
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+          # Optional: Set target branch (default is main)
+          target-branch: main
+
+      # Optional: Add additional steps that run only when a release is created
+      - name: Checkout Code
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm ci
+
+      - name: Run Tests on Release
+        if: ${{ steps.release.outputs.release_created }}
+        run: make test
+
+      # Output release information for debugging/logging
+      - name: Output Release Information
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          echo "Release created: ${{ steps.release.outputs.release_created }}"
+          echo "Tag name: ${{ steps.release.outputs.tag_name }}"
+          echo "Version: ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}"
+          echo "Release URL: ${{ steps.release.outputs.html_url }}"
