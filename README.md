@@ -368,9 +368,9 @@ The project uses GitHub Actions for automated CI on all pull requests to the `ma
 
 1. **Super-Linter Job**: Runs [super-linter](https://github.com/super-linter/super-linter) to validate code quality
 
-   - **EditorConfig**: Validates code formatting consistency
-   - **ShellCheck**: Analyzes shell scripts for errors and best practices
-   - **Markdownlint**: Checks Markdown files for style consistency
+- **EditorConfig**: Validates code formatting consistency
+- **ShellCheck**: Analyzes shell scripts for errors and best practices
+- **Markdownlint**: Checks Markdown files for style consistency
 
 2. **Commitlint Job**: Validates commit messages follow Conventional Commits specification
 

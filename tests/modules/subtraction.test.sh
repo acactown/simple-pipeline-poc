@@ -7,6 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_DIR="${SCRIPT_DIR}/../../src/modules"
 
 # Source the subtraction module
+# shellcheck disable=SC1090
 source "${SOURCE_DIR}/subtraction.sh"
 
 # Test counter
