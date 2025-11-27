@@ -11,7 +11,7 @@ The project is organized into the following directories:
 - `operation.json`: Configuration file for the calculator
 - `Makefile`: Makefile for the project
 
-**Github Repository:** https://github.com/acactown/simple-pipeline-poc
+**Github Repository:** <https://github.com/acactown/simple-pipeline-poc>
 
 ---
 
@@ -67,7 +67,7 @@ The Conventional Commits specification is a lightweight convention on top of com
 The **commit message** should be structured as follows:
 
 ```
-<type>: [task-id] <description>
+<type>: [optional task-id] <description>
 
 [optional body]
 
@@ -98,5 +98,44 @@ The commit contains the following structural elements, to communicate intent:
 ![commitlint](./docs/commitlint.png)
 
 It provides an easy set of rules for creating an explicit commit history; which makes it easier to write automated tools on top of. This convention describes the **features**, **fixes**, and **breaking changes** made in commit messages.
+
+It checks the commit message against the Conventional Commits specification.
+
+## Husky - Git Hooks
+
+> A tool to help enforce Conventional Commits.
+
+Husky is a tool that helps enforce Conventional Commits. It is used to check the commit message against the Conventional Commits specification.
+
+---
+
+## SemVer - Semantic Versioning
+
+> Simple set of rules and requirements that dictate how version numbers are assigned and incremented.
+
+![semver](./docs/semver.png)
+
+Given a version number `MAJOR.MINOR.PATCH`, increment the:
+
+- `MAJOR` version when you make incompatible API changes
+- `MINOR` version when you add functionality in a backward compatible manner
+- `PATCH` version when you make backward compatible bug fixes
+
+**For example:**
+
+- `1.0.0` -> compatible new feature -> `1.1.0` -> compatible new bug fix -> `1.1.1`
+- `1.1.1` -> compatible new bug fix -> `1.1.2` -> compatible new bug fix -> `1.1.3`
+- `1.1.3` -> breaking change -> `2.0.0`
+- `2.0.0` -> compatible new bug fix -> `2.0.1` -> compatible new bug fix -> `2.0.2`
+
+---
+
+## Markdownlint - Markdown Linting
+
+> A tool to help maintain consistent Markdown formatting.
+
+![markdownlint](./docs/markdownlint.png)
+
+It is used to check the Markdown files against the Markdownlint specification.
 
 ---

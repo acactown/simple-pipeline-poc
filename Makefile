@@ -1,4 +1,4 @@
-.PHONY: run test clean help permissions setup-commitlint check-commit check-editorconfig check-shellcheck lint
+.PHONY: run test clean help permissions setup-commitlint check-commit check-editorconfig check-shellcheck check-markdownlint lint
 
 # Default target
 help:
@@ -11,7 +11,8 @@ help:
 	@echo "  make permissions         - Set executable permissions on scripts"
 	@echo "  make check-editorconfig  - Check EditorConfig compliance"
 	@echo "  make check-shellcheck    - Check shell scripts with ShellCheck"
-	@echo "  make lint                - Run all linters (editorconfig + shellcheck)"
+	@echo "  make check-markdownlint  - Check Markdown files with markdownlint"
+	@echo "  make lint                - Run all linters (editorconfig + shellcheck + markdownlint)"
 	@echo "  make setup-commitlint    - Install commitlint and setup git hooks"
 	@echo "  make check-commit        - Check the last commit message"
 	@echo "  make clean               - Clean up temporary files"
@@ -70,8 +71,14 @@ check-shellcheck:
 	@shellcheck src/main.sh src/modules/*.sh tests/main.sh tests/modules/*.test.sh
 	@echo "✅ ShellCheck complete!"
 
+# Check Markdown files with markdownlint
+check-markdownlint:
+	@echo "Checking Markdown files with markdownlint..."
+	@npx markdownlint '**/*.md' --ignore node_modules
+	@echo "✅ markdownlint complete!"
+
 # Run all linters
-lint: check-commit check-editorconfig check-shellcheck
+lint: check-commit check-editorconfig check-shellcheck check-markdownlint
 	@echo "✅ All linting checks passed!"
 
 # Clean up temporary files

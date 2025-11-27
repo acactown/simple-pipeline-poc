@@ -44,11 +44,12 @@ Before using this calculator, ensure you have the following installed:
 - **bc** - Basic calculator for arithmetic operations
 - **make** - Build automation tool
 
-### Optional (for development):
+### Optional (for development)
 
-- **Node.js** (version 14.x or higher) - For commitlint
+- **Node.js** (version 14.x or higher) - For commitlint and markdownlint
 - **npm** (version 6.x or higher) - For package management
 - **shellcheck** - Shell script linting tool
+- **markdownlint-cli** - Markdown linting tool
 
 ### Installing Prerequisites
 
@@ -143,7 +144,8 @@ simple-pipeline-poc/
 - `make check-commit` - Check the last commit message
 - `make check-editorconfig` - Check EditorConfig compliance
 - `make check-shellcheck` - Check shell scripts with ShellCheck
-- `make lint` - Run all linters (editorconfig + shellcheck)
+- `make check-markdownlint` - Check Markdown files with markdownlint
+- `make lint` - Run all linters (editorconfig + shellcheck + markdownlint)
 - `make clean` - Remove temporary files
 
 ## Configuration
@@ -188,26 +190,6 @@ The calculator reads its configuration from `operation.json` in the root directo
   "second_number": 2.5
 }
 ```
-
-## Code Quality
-
-### ShellCheck - Shell Script Linting
-
-ShellCheck is a static analysis tool for shell scripts that helps catch common errors and improve script quality.
-
-**Running ShellCheck:**
-
-```bash
-make check-shellcheck
-```
-
-**Running all linters:**
-
-```bash
-make lint
-```
-
-This will run both EditorConfig checker and ShellCheck.
 
 ## Testing
 
