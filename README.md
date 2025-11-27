@@ -78,7 +78,7 @@ sudo yum install ShellCheck
 
 ## Project Structure
 
-```
+```text
 simple-pipeline-poc/
 ├── src/
 │   ├── main.sh                    # Main entry point
@@ -288,7 +288,7 @@ make run
 
 **Output:**
 
-```
+```text
 📝 Operation: addition
     🔢  First Number: 100
     🔢 Second Number: 250
@@ -314,7 +314,7 @@ make run
 
 **Output:**
 
-```
+```text
 📝 Operation: division
     🔢  First Number: 22
     🔢 Second Number: 7
@@ -330,7 +330,7 @@ make test
 
 **Output:**
 
-```
+```text
 ======================================
 Running Calculator Unit Tests
 ======================================
@@ -398,12 +398,12 @@ make test
 
 - **Shell Scripts**: Follow [ShellCheck](https://github.com/koalaman/shellcheck) recommendations (`.shellcheckrc`)
 - **Formatting**: Follow [EditorConfig](https://editorconfig.org/) rules (`.editorconfig`)
-- **Markdown**: Follow Markdownlint rules (`.markdownlint.json`)
+- **Markdown**: Follow Markdownlint rules (`.markdown-lint.yml`)
 - **Commits**: Follow [Conventional Commits](https://www.conventionalcommits.org/) (`.commitlintrc.json`)
 
 ### Commit Message Format
 
-```
+```text
 <type>: [optional task-id] <description>
 ```
 
@@ -411,7 +411,7 @@ make test
 
 **Examples:**
 
-```
+```text
 feat: [DMPINV-101] add multiplication operation
 fix: [DMPINV-202] correct division by zero handling
 docs: update README with CI/CD information
