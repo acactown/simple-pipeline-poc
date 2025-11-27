@@ -97,17 +97,17 @@ simple-pipeline-poc/
 
 1. **Clone or download the repository:**
 
-   ```bash
-   cd /path/to/simple-pipeline-poc
-   ```
+  ```bash
+  cd /path/to/simple-pipeline-poc.git
+  ```
 
 2. **Set executable permissions:**
 
-   ```bash
-   make permissions
-   ```
+  ```bash
+  make permissions
+  ```
 
-   This command automatically sets executable permissions on all scripts.
+  This command automatically sets executable permissions on all scripts.
 
 ## Usage
 
@@ -115,19 +115,19 @@ simple-pipeline-poc/
 
 1. **Edit the configuration file** (`operation.json`) to specify the operation:
 
-   ```json
-   {
-     "operation": "addition",
-     "first_number": 10,
-     "second_number": 5
-   }
-   ```
+  ```json
+  {
+    "operation": "addition",
+    "first_number": 10,
+    "second_number": 5
+  }
+  ```
 
 2. **Run the calculator:**
 
-   ```bash
-   make run
-   ```
+  ```bash
+  make run
+  ```
 
 ### Available Make Commands
 
@@ -137,6 +137,7 @@ simple-pipeline-poc/
 - `make permissions` - Set executable permissions on scripts
 - `make setup-commitlint` - Install commitlint and setup git hooks
 - `make check-commit` - Check the last commit message
+- `make check-editorconfig` - Check EditorConfig compliance
 - `make clean` - Remove temporary files
 
 ## Configuration
@@ -181,23 +182,6 @@ The calculator reads its configuration from `operation.json` in the root directo
   "second_number": 2.5
 }
 ```
-
-## Development Workflow
-
-### Commit Message Format
-
-This project uses [Conventional Commits](https://www.conventionalcommits.org/) enforced by [Commitlint](https://commitlint.js.org/).
-
-**Format:** `<type>: [task-id] <description>`
-
-**Example:** `feat: [DMPINV-101] add multiplication operation`
-
-**Setup commitlint:**
-```bash
-make setup-commitlint
-```
-
-For more details, see [docs/COMMITLINT.md](docs/COMMITLINT.md)
 
 ## Testing
 

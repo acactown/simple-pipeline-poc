@@ -5,7 +5,8 @@
   "main": "src/main.sh",
   "scripts": {
     "test": "bash tests/main.sh",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "editorconfig": "editorconfig-checker"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "license": "ISC",
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
-    "@commitlint/config-conventional": "^18.4.3"
+    "@commitlint/config-conventional": "^18.4.3",
+    "editorconfig-checker": "^5.1.2"
   }
 }

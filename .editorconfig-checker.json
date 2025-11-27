@@ -1,0 +1,15 @@
+{
+  "Exclude": [
+    "node_modules",
+    "package-lock.json",
+    ".git",
+    "docs"
+  ],
+  "Verbose": false,
+  "Debug": false,
+  "IgnoreDefaults": false,
+  "SpacesAfterTabs": false,
+  "NoColor": false,
+  "AllowedContentTypes": [],
+  "PassedFiles": []
+}
