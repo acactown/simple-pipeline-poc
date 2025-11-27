@@ -77,7 +77,7 @@ The Conventional Commits specification is a lightweight convention on top of com
 
 The **commit message** should be structured as follows:
 
-```
+```text
 <type>: [optional task-id] <description>
 
 [optional body]
