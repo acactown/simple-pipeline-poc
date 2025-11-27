@@ -6,7 +6,8 @@
   "scripts": {
     "test": "bash tests/main.sh",
     "commitlint": "commitlint --edit",
-    "editorconfig": "editorconfig-checker"
+    "editorconfig": "editorconfig-checker",
+    "shellcheck": "shellcheck src/**/*.sh tests/**/*.sh"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
-    "editorconfig-checker": "^5.1.2"
+    "editorconfig-checker": "^5.1.2",
+    "shellcheck": "^3.0.0"
   }
 }

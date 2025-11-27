@@ -1,0 +1,13 @@
+# ShellCheck configuration file
+# https://github.com/koalaman/shellcheck/wiki/Directive
+
+# Specify the shell dialect
+shell=bash
+
+# Disable specific checks for this project
+# SC1090: Can't follow non-constant source (expected with dynamic sourcing)
+# SC1091: Not following sourced files (expected in modular architecture)
+disable=SC1090,SC1091
+
+# Exclude specific directories or patterns can be done in the command line
+

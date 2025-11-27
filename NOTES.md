@@ -1,6 +1,8 @@
 # Pipeline POC
 
-## 1. Get familiar with the project structure
+---
+
+## Get familiar with the project structure
 
 The project is organized into the following directories:
 
@@ -11,14 +13,18 @@ The project is organized into the following directories:
 
 **Github Repository:** https://github.com/acactown/simple-pipeline-poc
 
-## 2. Tasks to complete
+---
+
+## Tasks to complete
 
 - [ ] **DMPINV-101:** Fix the *multiplication* operation issue
 - [ ] **DMPINV-102:** Update the `README.md` file to include the *multiplication* operation
 - [ ] **DMPINV-202:** Add tests for the *division* operation
 - [ ] **DMPINV-303:** Add a new *subtraction* operation to the calculator
 
-## 3. EditorConfig - Code Style
+---
+
+## EditorConfig - Code Style
 
 > A tool to help maintain consistent coding styles between different editors and IDEs.
 
@@ -28,13 +34,29 @@ The EditorConfig project consists of a file format for defining coding styles an
 
 The EditorConfig file is a simple text file that defines the coding styles for a project. It is used to maintain consistency across different editors and IDEs.
 
-## 4. EditorConfigChecker - Code Style Checker
+## EditorConfigChecker - Code Style Checker
 
 > A tool to help maintain consistent coding styles between different editors and IDEs.
 
 ![editorconfig-checker](./docs/editorconfig-checker.png)
 
-## 5. Conventional Commits
+---
+
+## ShellCheck - Shell Script Linting
+
+> A static analysis tool for shell scripts that helps catch common errors and improve script quality.
+
+![shellcheck](./docs/shellcheck.png)
+
+ShellCheck is a GPLv3 tool that gives warnings and suggestions for bash/sh shell scripts. It can help you find:
+
+- Syntax errors that can cause a shell script to fail
+- Semantic problems that may cause a shell to behave strangely or incorrectly
+- Subtle caveats, corner cases, and pitfalls that may cause an advanced user's otherwise working script to fail under future circumstances
+
+---
+
+## Conventional Commits
 
 > The specification for adding human and machine readable meaning to commit messages.
 
@@ -69,7 +91,7 @@ The commit contains the following structural elements, to communicate intent:
 - `perf:` used for performance improvements.
 - `revert:` if the commit reverts a previous commit. The hash of the commit being reverted should be indicated.
 
-## 6. Commitlint - Commit Message Linter
+## Commitlint - Commit Message Linter
 
 > A tool to help enforce Conventional Commits.
 
@@ -77,3 +99,4 @@ The commit contains the following structural elements, to communicate intent:
 
 It provides an easy set of rules for creating an explicit commit history; which makes it easier to write automated tools on top of. This convention describes the **features**, **fixes**, and **breaking changes** made in commit messages.
 
+---

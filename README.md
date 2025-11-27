@@ -48,26 +48,30 @@ Before using this calculator, ensure you have the following installed:
 
 - **Node.js** (version 14.x or higher) - For commitlint
 - **npm** (version 6.x or higher) - For package management
+- **shellcheck** - Shell script linting tool
 
 ### Installing Prerequisites
 
 **On macOS:**
 
 ```bash
-brew install jq bc make
+brew install jq bc make shellcheck
 ```
 
 **On Ubuntu/Debian:**
 
 ```bash
 sudo apt-get update
-sudo apt-get install jq bc make
+sudo apt-get install jq bc make shellcheck
 ```
 
 **On CentOS/RHEL:**
 
 ```bash
 sudo yum install jq bc make
+# ShellCheck may require EPEL repository
+sudo yum install epel-release
+sudo yum install ShellCheck
 ```
 
 ## Project Structure
@@ -138,6 +142,8 @@ simple-pipeline-poc/
 - `make setup-commitlint` - Install commitlint and setup git hooks
 - `make check-commit` - Check the last commit message
 - `make check-editorconfig` - Check EditorConfig compliance
+- `make check-shellcheck` - Check shell scripts with ShellCheck
+- `make lint` - Run all linters (editorconfig + shellcheck)
 - `make clean` - Remove temporary files
 
 ## Configuration
@@ -182,6 +188,26 @@ The calculator reads its configuration from `operation.json` in the root directo
   "second_number": 2.5
 }
 ```
+
+## Code Quality
+
+### ShellCheck - Shell Script Linting
+
+ShellCheck is a static analysis tool for shell scripts that helps catch common errors and improve script quality.
+
+**Running ShellCheck:**
+
+```bash
+make check-shellcheck
+```
+
+**Running all linters:**
+
+```bash
+make lint
+```
+
+This will run both EditorConfig checker and ShellCheck.
 
 ## Testing
 

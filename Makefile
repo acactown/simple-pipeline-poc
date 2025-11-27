@@ -1,4 +1,4 @@
-.PHONY: run test clean help permissions setup-commitlint check-commit check-editorconfig
+.PHONY: run test clean help permissions setup-commitlint check-commit check-editorconfig check-shellcheck lint
 
 # Default target
 help:
@@ -10,6 +10,8 @@ help:
 	@echo "  make test                - Run all unit tests"
 	@echo "  make permissions         - Set executable permissions on scripts"
 	@echo "  make check-editorconfig  - Check EditorConfig compliance"
+	@echo "  make check-shellcheck    - Check shell scripts with ShellCheck"
+	@echo "  make lint                - Run all linters (editorconfig + shellcheck)"
 	@echo "  make setup-commitlint    - Install commitlint and setup git hooks"
 	@echo "  make check-commit        - Check the last commit message"
 	@echo "  make clean               - Clean up temporary files"
@@ -44,10 +46,6 @@ check-editorconfig:
 # Setup commitlint and husky
 setup-commitlint:
 	@echo "Setting up commitlint..."
-	@if ! command -v npm &> /dev/null; then \
-		echo "❌ Error: npm is not installed. Please install Node.js and npm first."; \
-		exit 1; \
-	fi
 	@npm install
 	@npx husky install
 	@chmod +x .husky/commit-msg
@@ -64,6 +62,17 @@ setup-commitlint:
 check-commit:
 	@echo "Checking last commit message..."
 	@git log -1 --pretty=%B | npx commitlint
+	@echo "✅ Commit message format check complete!"
+
+# Check shell scripts with ShellCheck
+check-shellcheck:
+	@echo "Checking shell scripts with ShellCheck..."
+	@shellcheck src/main.sh src/modules/*.sh tests/main.sh tests/modules/*.test.sh
+	@echo "✅ ShellCheck complete!"
+
+# Run all linters
+lint: check-commit check-editorconfig check-shellcheck
+	@echo "✅ All linting checks passed!"
 
 # Clean up temporary files
 clean:
