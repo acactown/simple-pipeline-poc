@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/acactown/simple-pipeline-poc/compare/v1.0.1...v1.0.2) (2025-11-27)
+
+
+### Bug Fixes
+
+* prepare repo for DEMO ([#5](https://github.com/acactown/simple-pipeline-poc/issues/5)) ([3266104](https://github.com/acactown/simple-pipeline-poc/commit/3266104e2051e13a0c1006e92f596aef01298986))
+
 ## [1.0.1](https://github.com/acactown/simple-pipeline-poc/compare/v1.0.0...v1.0.1) (2025-11-27)
 
 
