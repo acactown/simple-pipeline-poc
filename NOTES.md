@@ -29,7 +29,6 @@ The project is organized into the following directories:
 ## Tasks to complete
 
 - [ ] **DMPINV-101:** Fix the *multiplication* operation issue
-- [ ] **DMPINV-102:** Update the `README.md` file to include the *multiplication* operation
 - [ ] **DMPINV-202:** Add tests for the *division* operation
 - [ ] **DMPINV-303:** Add a new *subtraction* operation to the calculator
 
