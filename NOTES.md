@@ -77,7 +77,7 @@ The Conventional Commits specification is a lightweight convention on top of com
 
 The **commit message** should be structured as follows:
 
-```
+```text
 <type>: [optional task-id] <description>
 
 [optional body]
@@ -163,13 +163,13 @@ Runs the [super-linter](https://github.com/super-linter/super-linter) GitHub Act
 
 - **EditorConfig**: Validates code formatting against `.editorconfig` rules
 - **ShellCheck**: Analyzes shell scripts for errors and best practices using `.shellcheckrc`
-- **Markdownlint**: Checks Markdown files for style consistency using `.markdownlint.json`
+- **Markdownlint**: Checks Markdown files for style consistency using `.markdown-lint.yml`
 
 Configuration:
 
 - Uses `.editorconfig-checker.json` for EditorConfig validation
 - Uses `.shellcheckrc` for ShellCheck configuration
-- Uses `.markdownlint.json` for Markdown linting rules
+- Uses `.markdown-lint.yml` for Markdown linting rules
 - Excludes `node_modules/`, `package-lock.json`, and `docs/` from validation
 
 ### 2. Commitlint Job

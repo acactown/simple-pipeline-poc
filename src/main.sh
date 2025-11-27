@@ -43,6 +43,7 @@ if [[ ! -f "${MODULE_FILE}" ]]; then
 fi
 
 # Source the module and execute the operation
+# shellcheck disable=SC1090
 source "${MODULE_FILE}"
 
 # Call the operation function
