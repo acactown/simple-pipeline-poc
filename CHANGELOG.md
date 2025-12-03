@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/acactown/simple-pipeline-poc/compare/v1.0.3...v1.0.4) (2025-12-03)
+
+
+### Bug Fixes
+
+* fix labeler required config issue ([#9](https://github.com/acactown/simple-pipeline-poc/issues/9)) ([bf0b739](https://github.com/acactown/simple-pipeline-poc/commit/bf0b739aaaa37517b633ba52b4840d9e9301e0cd))
+
 ## [1.0.3](https://github.com/acactown/simple-pipeline-poc/compare/v1.0.2...v1.0.3) (2025-11-27)
 
 
