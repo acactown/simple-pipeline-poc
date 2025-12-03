@@ -84,9 +84,6 @@ jobs:
           # Release type for the project
           release-type: node
 
-          # Package name (from package.json)
-          package-name: simple-pipeline-poc
-
           # Token for creating releases and PRs
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -94,6 +91,10 @@ jobs:
           target-branch: main
 
       # Optional: Add additional steps that run only when a release is created
+      - name: Checkout Code
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/checkout@v5
+
       - name: Download PKG Artifact
         if: ${{ steps.release.outputs.release_created }}
         uses: actions/download-artifact@v4
