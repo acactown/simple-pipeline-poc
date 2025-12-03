@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/acactown/simple-pipeline-poc/compare/v1.0.5...v1.0.6) (2025-12-03)
+
+
+### Bug Fixes
+
+* [DMPINV-101] fix multiplication issue ([#12](https://github.com/acactown/simple-pipeline-poc/issues/12)) ([5556e49](https://github.com/acactown/simple-pipeline-poc/commit/5556e4946c92394afaa0a798fe9bd0cf9b0699b0))
+
 ## [1.0.5](https://github.com/acactown/simple-pipeline-poc/compare/v1.0.4...v1.0.5) (2025-12-03)
 
 
