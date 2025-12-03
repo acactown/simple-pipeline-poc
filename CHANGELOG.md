@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/acactown/simple-pipeline-poc/compare/v1.0.4...v1.0.5) (2025-12-03)
+
+
+### Bug Fixes
+
+* fix pkg release issue ([089759f](https://github.com/acactown/simple-pipeline-poc/commit/089759fe6da6afb143acc91c58eb42e706d5a924))
+
 ## [1.0.4](https://github.com/acactown/simple-pipeline-poc/compare/v1.0.3...v1.0.4) (2025-12-03)
 
 

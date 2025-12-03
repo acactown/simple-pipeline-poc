@@ -1,6 +1,6 @@
 {
   "name": "simple-pipeline-poc",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A simple yet comprehensive calculator application written in BASH",
   "main": "src/main.sh",
   "scripts": {
