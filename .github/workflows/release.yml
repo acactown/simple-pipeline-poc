@@ -15,9 +15,66 @@ permissions:
   pull-requests: write
 
 jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Run Tests
+        run: make test
+
+  build:
+    name: Build macOS Package (on Ubuntu)
+    runs-on: ubuntu-latest
+    needs: [test]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install PKG Build Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxml2-dev libssl-dev zlib1g-dev
+          # Install bomutils for mkbom
+          git clone https://github.com/hogliux/bomutils.git /tmp/bomutils
+          cd /tmp/bomutils && make && sudo make install
+          # Install xar for creating the final package
+          git clone https://github.com/mackyle/xar.git /tmp/xar
+          cd /tmp/xar/xar && \
+            ac_cv_lib_crypto_OpenSSL_add_all_ciphers=yes ./autogen.sh && \
+            make && sudo make install
+          sudo ldconfig
+
+      - name: Build macOS PKG Package
+        run: make pkg-ubuntu
+
+      - name: Upload PKG Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-pkg
+          path: build/*.pkg
+          retention-days: 5
+
   release-please:
     name: Release
     runs-on: ubuntu-latest
+    needs: [build]
 
     steps:
       - name: Run Release Please
@@ -37,24 +94,19 @@ jobs:
           target-branch: main
 
       # Optional: Add additional steps that run only when a release is created
-      - name: Checkout Code
+      - name: Download PKG Artifact
         if: ${{ steps.release.outputs.release_created }}
-        uses: actions/checkout@v5
-
-      - name: Setup Node.js
-        if: ${{ steps.release.outputs.release_created }}
-        uses: actions/setup-node@v4
+        uses: actions/download-artifact@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          name: macos-pkg
+          path: build/
 
-      - name: Install Dependencies
+      - name: Upload PKG to Release
         if: ${{ steps.release.outputs.release_created }}
-        run: npm ci
-
-      - name: Run Tests on Release
-        if: ${{ steps.release.outputs.release_created }}
-        run: make test
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload ${{ steps.release.outputs.tag_name }} build/*.pkg --clobber
 
       # Output release information for debugging/logging
       - name: Output Release Information
