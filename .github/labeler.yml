@@ -1,0 +1,76 @@
+# Configuration for actions/labeler v6
+# https://github.com/actions/labeler
+
+# Documentation changes
+docs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**"
+          - "*.md"
+          - "README.md"
+          - "CHANGELOG.md"
+          - "NOTES.md"
+
+# Internal/infrastructure changes (CI, configs, build)
+internal:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/**"
+          - ".editorconfig"
+          - ".gitignore"
+          - ".commitlintrc.json"
+          - ".markdownlint.json"
+          - "Makefile"
+          - "build/**"
+
+# Dependency/upgrade changes
+upgrade:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "package.json"
+          - "package-lock.json"
+
+# Source code changes (shell scripts)
+lang-all:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "src/**/*.sh"
+          - "src/**/*.json"
+          - "tests/**/*.sh"
+
+# Feature label - based on branch name patterns
+feature:
+  - head-branch:
+      - "^feature"
+      - "^feat"
+      - "feature"
+
+# Bug fix label - based on branch name patterns
+bug:
+  - head-branch:
+      - "^fix"
+      - "^bug"
+      - "^hotfix"
+      - "bugfix"
+
+# Refactor label - based on branch name patterns
+refactor:
+  - head-branch:
+      - "^refactor"
+      - "refactor"
+
+# Breaking changes - based on branch name patterns
+breaking:
+  - head-branch:
+      - "^breaking"
+      - "breaking-change"
+
+# Security changes - based on branch name or file patterns
+security:
+  - head-branch:
+      - "^security"
+      - "^sec"
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/security/**"
+          - ".github/dependabot.yml"

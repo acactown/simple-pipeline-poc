@@ -255,7 +255,7 @@ Multiplies two numbers.
 {"operation": "multiplication", "first_number": 6, "second_number": 7}
 ```
 
-**Result:** `42`
+**Result:** `13`
 
 ### 4. Division
 

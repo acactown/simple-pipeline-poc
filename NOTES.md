@@ -137,9 +137,9 @@ It is used to check the commit message against the Conventional Commits specific
 
 Given a version number `MAJOR.MINOR.PATCH`, increment the:
 
-- `MAJOR` version when you make incompatible API changes
-- `MINOR` version when you add functionality in a backward compatible manner
-- `PATCH` version when you make backward compatible bug fixes
+- `PATCH` version when you make backward compatible bug fixes. (`fix`, `perf`) `1.0.4` -> compatible new bug fix -> `1.0.5`
+- `MINOR` version when you add functionality in a backward compatible manner. (`feat`, `refactor`, `style`, `test`) `1.0.4` -> compatible new feature -> `1.1.0`
+- `MAJOR` version when you make incompatible API changes. (`breaking`) `1.0.4` -> breaking change -> `2.0.0`
 
 **For example:**
 
