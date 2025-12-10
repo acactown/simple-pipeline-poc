@@ -8,3 +8,5 @@ MD033:
     - br
 MD040: false
 MD041: false
+MD060:
+  style: aligned

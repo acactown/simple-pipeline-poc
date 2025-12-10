@@ -74,3 +74,8 @@ security:
       - any-glob-to-any-file:
           - "**/security/**"
           - ".github/dependabot.yml"
+
+# Release notes - for PRs targeting main branch (required for Megaphone)
+release-notes:
+  - head-branch:
+      - "^release-please--branches--main--"

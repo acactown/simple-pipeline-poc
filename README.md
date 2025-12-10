@@ -14,6 +14,8 @@ A simple yet comprehensive calculator application written in BASH, featuring mod
 - [Testing](#testing)
 - [Supported Operations](#supported-operations)
 - [Examples](#examples)
+- [Creating Installer Packages](#creating-installer-packages)
+- [Linting and Code Quality Tools](#linting-and-code-quality-tools)
 - [Code Quality and CI/CD](#code-quality-and-cicd)
 
 ## Overview
@@ -147,7 +149,8 @@ simple-pipeline-poc/
 - `make check-shellcheck` - Check shell scripts with ShellCheck
 - `make check-markdownlint` - Check Markdown files with markdownlint
 - `make lint` - Run all linters (editorconfig + shellcheck + markdownlint)
-- `make pkg` - Create macOS PKG installer package (see [PKG Build Guide](docs/PKG_BUILD.md))
+- `make pkg-macos` - Create macOS PKG installer package (use on macOS)
+- `make pkg-ubuntu` - Create macOS PKG installer package (use on Ubuntu/CI systems)
 - `make clean` - Remove temporary files
 
 ## Configuration
@@ -359,6 +362,317 @@ Total Tests: 4
 ✅ All tests passed!
 ```
 
+## Creating Installer Packages
+
+The project supports creating macOS PKG installer packages for distribution.
+
+### pkg-macos (Recommended for local builds)
+
+Use this target when building on **macOS**:
+
+```bash
+make pkg-macos
+```
+
+This uses Apple's native `pkgbuild` command to create a properly formatted PKG file.
+
+**Installation:**
+
+```bash
+# Install the package
+sudo installer -pkg build/simple-pipeline-poc-<version>.pkg -target /
+
+# After installation, the calculator is available as:
+simple-calculator
+```
+
+### pkg-ubuntu (For CI/CD builds)
+
+Use this target when building on **Ubuntu** (e.g., GitHub Actions runners):
+
+```bash
+make pkg-ubuntu
+```
+
+This manually constructs a PKG file using `xar`, `cpio`, and `mkbom` tools.
+
+⚠️ **Note:** Packages built on Ubuntu may have compatibility issues and should primarily be used in automated CI/CD pipelines.
+
+### Installing Unsigned Packages
+
+⚠️ **Both targets create unsigned packages.** macOS Gatekeeper will block installation by default.
+
+**Workaround options:**
+
+1. **Right-click installation** (recommended for end users):
+
+    - Right-click (or Control+click) the `.pkg` file in Finder
+    - Select "Open" from the context menu
+    - Click "Open" in the warning dialog
+
+2. **Allow in System Settings**:
+
+    - Try to install normally
+    - Go to System Settings → Privacy & Security
+    - Click "Open Anyway" next to the blocked installer
+
+3. **Command line override**:
+
+    ```bash
+    sudo installer -allowUntrusted -pkg build/simple-pipeline-poc-<version>.pkg -target /
+    ```
+
+### Code Signing (Optional)
+
+To create properly signed packages that install without warnings, you need an **Apple Developer ID Installer certificate**. Contact your organization's Apple Developer Program admin to obtain the necessary credentials.
+
+## Linting and Code Quality Tools
+
+This project uses multiple linting tools to maintain code quality, consistency, and adherence to best practices. All linters are integrated into the development workflow and CI/CD pipeline.
+
+### Overview of Linting Tools
+
+The project uses four primary linting tools:
+
+| Tool             | Purpose                      | Config File          | Run Command               |
+|------------------|------------------------------|----------------------|---------------------------|
+| **EditorConfig** | Code formatting consistency  | `.editorconfig`      | `make check-editorconfig` |
+| **ShellCheck**   | Shell script static analysis | `.shellcheckrc`      | `make check-shellcheck`   |
+| **Markdownlint** | Markdown file linting        | `.markdown-lint.yml` | `make check-markdownlint` |
+| **Commitlint**   | Commit message validation    | `.commitlintrc.json` | `make check-commit`       |
+
+### Installation Instructions
+
+**NPM Linting dependencies:**
+
+```bash
+npm install
+```
+
+**EditorConfig Checker:**
+
+```bash
+brew install editorconfig-checker
+```
+
+**ShellCheck:**
+
+```bash
+# macOS
+brew install shellcheck
+```
+
+**Commitlint:**
+
+```bash
+# Setup git hooks (required)
+make setup-commitlint
+```
+
+### Configuration Details
+
+#### 1. EditorConfig (`.editorconfig`)
+
+Enforces consistent coding styles across different editors and IDEs.
+
+**Exclusions (`.editorconfig-checker.json`):**
+
+Edit the `.editorconfig-checker.json` file to exclude the files you want to ignore.
+
+**Check compliance:**
+
+```bash
+make check-editorconfig
+```
+
+#### 2. ShellCheck (`.shellcheckrc`)
+
+Static analysis tool for shell scripts that detects common errors and bad practices.
+
+**Check scripts:**
+
+```bash
+make check-shellcheck
+```
+
+#### 3. Markdownlint (`.markdown-lint.yml`)
+
+Validates Markdown files for style and formatting consistency.
+
+**Check Markdown files:**
+
+```bash
+make check-markdownlint
+```
+
+**Excluded Files (`.markdownlintignore`):**
+
+Edit the `.markdownlintignore` file to exclude the files you want to ignore.
+
+#### 4. Commitlint (`.commitlintrc.json`)
+
+Validates commit messages follow the Conventional Commits specification.
+
+**Commit Message Format:**
+
+```text
+<type>: [optional-task-id] <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Valid Types:**
+
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `style`: Code style changes (formatting, etc.)
+- `refactor`: Code refactoring
+- `perf`: Performance improvements
+- `test`: Adding or updating tests
+- `build`: Build system changes
+- `ci`: CI/CD changes
+- `chore`: Maintenance tasks
+- `revert`: Revert previous commit
+
+**Check commit:**
+
+```bash
+make check-commit
+```
+
+### Running All Linters
+
+Run all linters at once before committing:
+
+```bash
+make lint
+```
+
+This runs:
+
+1. Commitlint (checks last commit message)
+2. EditorConfig checker
+3. ShellCheck (all shell scripts)
+4. Markdownlint (all Markdown files)
+
+### Git Hooks Integration
+
+Commitlint is automatically enforced via Git hooks (Husky) to validate commit messages before they're created.
+
+**Setup hooks:**
+
+```bash
+make setup-commitlint
+```
+
+This creates `.husky/commit-msg` hook that runs `commitlint` automatically on every commit.
+
+**Hook behavior:**
+
+- ✅ Valid commit message → Commit succeeds
+- ❌ Invalid commit message → Commit rejected with error message
+
+### SDLC Integration
+
+The linting tools are integrated throughout the Software Development Lifecycle:
+
+#### 1. Local Development (Pre-commit)
+
+```text
+Developer writes code
+       ↓
+make lint (manual check)
+       ↓
+git add .
+       ↓
+git commit -m "..." ← Commitlint hook validates message
+       ↓
+git push
+```
+
+**Best Practice:** Run `make lint` before committing to catch issues early.
+
+#### 2. Continuous Integration (Pull Request)
+
+```text
+Developer opens PR to main branch
+       ↓
+GitHub Actions CI Pipeline runs:
+       ↓
+┌─────────────────────────────────┐
+│ 1. Super-Linter Job (parallel)  │
+│    - EditorConfig               │
+│    - ShellCheck                 │
+│    - Markdownlint               │
+├─────────────────────────────────┤
+│ 2. Commitlint Job (parallel)    │
+│    - Validates all PR commits   │
+├─────────────────────────────────┤
+│ 3. Test Job (after 1 & 2)       │
+│    - Runs unit tests            │
+├─────────────────────────────────┤
+│ 4. Build Job (after 3)          │
+│    - Creates macOS PKG          │
+└─────────────────────────────────┘
+       ↓
+All checks pass → PR can be merged
+Any check fails → PR blocked until fixed
+```
+
+**CI Configuration:** `.github/workflows/ci.yml`
+
+#### 3. Quality Gates
+
+The SDLC enforces quality at multiple levels:
+
+| Stage      | Gate                  | Tool(s)     | Enforcement              |
+|------------|-----------------------|-------------|--------------------------|
+| **Commit** | Message format        | Commitlint  | Git hook (local)         |
+| **Push**   | Code quality          | All linters | CI pipeline (remote)     |
+| **PR**     | All checks pass       | CI pipeline | GitHub branch protection |
+| **Merge**  | Approved + CI passing | GitHub      | Required for merge       |
+
+#### 4. Release Process
+
+```text
+Code merged to main
+       ↓
+Release Please bot analyzes commits
+       ↓
+Creates/updates Release PR
+  - Generates CHANGELOG from commits
+  - Bumps version (SemVer)
+       ↓
+Maintainer reviews and merges
+       ↓
+Tag created → Release published
+```
+
+**Version Bumping (based on commit types):**
+
+- `feat:` → Minor version bump (1.0.0 → 1.1.0)
+- `fix:` → Patch version bump (1.0.0 → 1.0.1)
+- `feat!:` or `BREAKING CHANGE:` → Major version bump (1.0.0 → 2.0.0)
+
+### Best Practices
+
+1. **Run linters before committing:**
+
+   ```bash
+   make lint
+   ```
+
+2. **Fix issues incrementally:** Don't accumulate linting errors
+
+3. **Use IDE plugins:** Install EditorConfig, ShellCheck, and Markdownlint plugins for real-time feedback
+
+4. **Follow commit conventions:** Makes `CHANGELOG.md` generation and version bumping automatic
+
+5. **Review CI logs:** When CI fails, read the full error messages to understand what needs fixing
+
 ## Code Quality and CI/CD
 
 This project includes comprehensive code quality checks and continuous integration:
@@ -369,9 +683,9 @@ The project uses GitHub Actions for automated CI on all pull requests to the `ma
 
 1. **Super-Linter Job**: Runs [super-linter](https://github.com/super-linter/super-linter) to validate code quality
 
-- **EditorConfig**: Validates code formatting consistency
-- **ShellCheck**: Analyzes shell scripts for errors and best practices
-- **Markdownlint**: Checks Markdown files for style consistency
+    - **EditorConfig**: Validates code formatting consistency
+    - **ShellCheck**: Analyzes shell scripts for errors and best practices
+    - **Markdownlint**: Checks Markdown files for style consistency
 
 2. **Commitlint Job**: Validates commit messages follow Conventional Commits specification
 

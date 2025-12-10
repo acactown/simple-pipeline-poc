@@ -76,7 +76,7 @@ check-shellcheck:
 # Check Markdown files with markdownlint
 check-markdownlint:
 	@echo "Checking Markdown files with markdownlint..."
-	@npx markdownlint '**/*.md' --ignore node_modules --ignore CHANGELOG.md --config .markdown-lint.yml
+	@npx markdownlint '**/*.md' --config .markdown-lint.yml
 	@echo "✅ markdownlint complete!"
 
 # Run all linters
