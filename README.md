@@ -7,6 +7,7 @@ A simple yet comprehensive calculator application written in BASH, featuring mod
 - [Overview](#overview)
 - [Features](#features)
 - [Prerequisites](#prerequisites)
+- [Node Version Management](#node-version-management)
 - [Project Structure](#project-structure)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -49,33 +50,63 @@ Before using this calculator, ensure you have the following installed:
 
 ### Optional (for development)
 
-- **Node.js** (version 14.x or higher) - For commitlint and markdownlint
-- **npm** (version 6.x or higher) - For package management
+- **Node.js** (version 24.x or higher) - For commitlint and markdownlint
+- **npm** (version 11.x or higher) - For package management
 - **shellcheck** - Shell script linting tool
+- **editorconfig-checker** - EditorConfig linting tool
 - **markdownlint-cli** - Markdown linting tool
 
 ### Installing Prerequisites
 
-**On macOS:**
-
 ```bash
-brew install jq bc make shellcheck
+brew install jq bc make shellcheck editorconfig-checker
 ```
 
-**On Ubuntu/Debian:**
+## Node Version Management
+
+This project uses **Node.js 24.11.1** for development tooling (`commitlint`, `markdownlint`, etc.). The required Node version is specified in the `.nvmrc` file.
+
+### Using NVM (Recommended)
+
+[NVM (Node Version Manager)](https://github.com/nvm-sh/nvm) allows you to install and switch between multiple Node.js versions easily.
+
+#### Installing NVM
 
 ```bash
-sudo apt-get update
-sudo apt-get install jq bc make shellcheck
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 ```
 
-**On CentOS/RHEL:**
+Or with wget:
 
 ```bash
-sudo yum install jq bc make
-# ShellCheck may require EPEL repository
-sudo yum install epel-release
-sudo yum install ShellCheck
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+```
+
+After installation, restart your terminal or run:
+
+```bash
+source ~/.zshrc
+```
+
+#### Using the Correct Node Version
+
+Once NVM is installed, navigate to the project directory and run:
+
+```bash
+# Install the Node version specified in .nvmrc
+nvm install
+
+# Use the Node version specified in .nvmrc
+nvm use
+```
+
+### Verifying Node Version
+
+To verify you're using the correct Node version:
+
+```bash
+node --version
+# Should output: v24.11.1
 ```
 
 ## Project Structure
@@ -458,7 +489,6 @@ brew install editorconfig-checker
 **ShellCheck:**
 
 ```bash
-# macOS
 brew install shellcheck
 ```
 
@@ -583,13 +613,13 @@ The linting tools are integrated throughout the Software Development Lifecycle:
 
 ```text
 Developer writes code
-       ↓
+      ↓
 make lint (manual check)
-       ↓
+      ↓
 git add .
-       ↓
+      ↓
 git commit -m "..." ← Commitlint hook validates message
-       ↓
+      ↓
 git push
 ```
 
@@ -599,9 +629,9 @@ git push
 
 ```text
 Developer opens PR to main branch
-       ↓
+      ↓
 GitHub Actions CI Pipeline runs:
-       ↓
+      ↓
 ┌─────────────────────────────────┐
 │ 1. Super-Linter Job (parallel)  │
 │    - EditorConfig               │
@@ -617,7 +647,7 @@ GitHub Actions CI Pipeline runs:
 │ 4. Build Job (after 3)          │
 │    - Creates macOS PKG          │
 └─────────────────────────────────┘
-       ↓
+      ↓
 All checks pass → PR can be merged
 Any check fails → PR blocked until fixed
 ```
@@ -639,15 +669,15 @@ The SDLC enforces quality at multiple levels:
 
 ```text
 Code merged to main
-       ↓
+      ↓
 Release Please bot analyzes commits
-       ↓
+      ↓
 Creates/updates Release PR
   - Generates CHANGELOG from commits
   - Bumps version (SemVer)
-       ↓
+      ↓
 Maintainer reviews and merges
-       ↓
+      ↓
 Tag created → Release published
 ```
 
@@ -661,9 +691,9 @@ Tag created → Release published
 
 1. **Run linters before committing:**
 
-   ```bash
-   make lint
-   ```
+  ```bash
+  make lint
+  ```
 
 2. **Fix issues incrementally:** Don't accumulate linting errors
 

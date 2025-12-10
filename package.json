@@ -4,6 +4,7 @@
   "description": "A simple yet comprehensive calculator application written in BASH",
   "main": "src/main.sh",
   "scripts": {
+    "prepare": "husky",
     "test": "bash tests/main.sh",
     "commitlint": "commitlint --edit",
     "editorconfig": "editorconfig-checker",
@@ -26,6 +27,7 @@
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "editorconfig-checker": "^5.1.2",
+    "husky": "^9.1.7",
     "markdownlint-cli": "^0.46.0",
     "shellcheck": "^3.0.0"
   }

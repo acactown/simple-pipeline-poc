@@ -50,7 +50,6 @@ check-editorconfig:
 setup-commitlint:
 	@echo "Setting up commitlint..."
 	@npm install
-	@npx husky install
 	@chmod +x .husky/commit-msg
 	@echo "✅ Commitlint setup complete!"
 	@echo ""
