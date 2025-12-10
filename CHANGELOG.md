@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/acactown/simple-pipeline-poc/compare/v1.0.6...v1.1.0) (2025-12-10)
+
+
+### Features
+
+* add Node support ([e7a969f](https://github.com/acactown/simple-pipeline-poc/commit/e7a969f621c0396cf3152672d762233d1b4b21f2))
+
+
+### Bug Fixes
+
+* fix Release Please config issue ([098fdfa](https://github.com/acactown/simple-pipeline-poc/commit/098fdfae4589dd277077636415ad7dc61d0a7385))
+
 ## [1.0.6](https://github.com/acactown/simple-pipeline-poc/compare/v1.0.5...v1.0.6) (2025-12-03)
 
 
