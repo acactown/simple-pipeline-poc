@@ -1,9 +1,16 @@
 name: Release Pipeline
 
-# IMPORTANT: For this workflow to work, you must enable the following in your repository:
-# Settings → Actions → General → Workflow permissions:
-# 1. Select "Read and write permissions"
-# 2. Check "Allow GitHub Actions to create and approve pull requests"
+# IMPORTANT: For this workflow to work, you must configure the following in your repository:
+#
+# 1. Settings → Actions → General → Workflow permissions:
+#    - Select "Read and write permissions"
+#    - Check "Allow GitHub Actions to create and approve pull requests"
+#
+# 2. Create a Personal Access Token (PAT) or GitHub App token:
+#    - Go to Settings → Developer settings → Personal access tokens → Fine-grained tokens
+#    - Create a token with permissions: Contents (Read/Write), Pull Requests (Read/Write)
+#    - Add the token as a repository secret named "RELEASE_PLEASE_TOKEN"
+#    - This allows CI workflows to run on release-please PRs (GITHUB_TOKEN won't trigger them)
 
 on:
   push:
@@ -85,7 +92,8 @@ jobs:
           release-type: node
 
           # Token for creating releases and PRs
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Using PAT instead of GITHUB_TOKEN to trigger CI workflows on created PRs
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
 
           # Optional: Set target branch (default is main)
           target-branch: main
