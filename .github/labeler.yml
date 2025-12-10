@@ -2,7 +2,7 @@
 # https://github.com/actions/labeler
 
 # Documentation changes
-docs:
+documentation:
   - changed-files:
       - any-glob-to-any-file:
           - "docs/**"
@@ -39,7 +39,7 @@ lang-all:
           - "tests/**/*.sh"
 
 # Feature label - based on branch name patterns
-feature:
+enhancement:
   - head-branch:
       - "^feature"
       - "^feat"
