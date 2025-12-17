@@ -97,6 +97,11 @@ jobs:
 
           # Optional: Set target branch (default is main)
           target-branch: main
+          config-file: .release-please-config.json
+          # Optional: Customize path to .release-please-manifest.json
+          manifest-file: .release-please-manifest.json
+          # Optional: Sign off the release with a specific email
+          signoff: "Andres Amado <andres.amado@nubank.com.br>"
 
       # Optional: Add additional steps that run only when a release is created
       - name: Checkout Code
